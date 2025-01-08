@@ -1,0 +1,45 @@
+---
+interface Props {
+  text: String;
+}
+
+const { text = "text" } = Astro.props;
+---
+
+<a href="refsheet" class="wave-text-core group">
+  {
+    text.split('').map((char, index) => (
+      <span class="wave-char" style={`--delay: ${index * 0.1 - 5}s`}>{char}</span>
+    ))
+  }
+</a>
+
+<style>
+  .wave-text-core {
+    display: inline-flex;
+    white-space: nowrap;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(-10%);
+      color: #B47FC9;
+      animation-timing-function: cubic-bezier(0.5,0,1,1);
+    }
+    50% {
+      transform: translateY(10%);
+      color: white;
+      animation-timing-function: cubic-bezier(0,0,0.2,1);
+    }
+  }
+
+  .wave-char {
+    animation: bounce 1s infinite;
+    animation-delay: var(--delay);
+    transition: color 0.3s ease;
+  }
+
+  .group:hover wave-char:hover {
+    color: red;
+  }
+</style>

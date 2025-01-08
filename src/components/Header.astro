@@ -1,0 +1,30 @@
+---
+import Image from "astro/components/Image.astro";
+import Logo from '../assets/logo.svg'
+import Goggles from '../assets/goggles.png'
+
+interface Props {
+   description?: string,
+}
+
+const { description = "House of brainrot." } = Astro.props;
+---
+<a href="/">
+   <header id="logo" class="mt-3 p-3 text-center">
+      <Image class="inline h-7 w-auto" alt="known.sh" src={Logo}/>
+      <Image class="inline ml-3 h-7 w-auto" alt="goggles" src={Goggles}/>
+      <p class="block lg:hidden silkscreen pt-2">Hey (probably) mobile user</p>
+      <p class="block lg:hidden silkscreen text-4xl text-red-400">Viewing on Desktop Mode is preferred!</p>
+      <p class="block lg:hidden silkscreen">I ain't a mobile dev. Sorry</p>
+      <p class="hidden lg:block silkscreen pt-1">{description}</p>
+   </header>
+</a>
+
+<style>
+   .silkscreen {
+		font-family: 'Silkscreen';
+	}
+   a:hover {
+    color: gray;
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  url: string,
+  language: string,
+}
+
+const { url = "", language } = Astro.props;
+---
+
+<a href={url}>
+  <i class={`devicon-${language}-plain ${language === "rust" ? "rust" : ""} colored text-xl`}></i>
+</a>
+
+<style>
+  .rust {
+    color: #CE412B !important;
+  }
+</style>

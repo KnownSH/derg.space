@@ -1,0 +1,30 @@
+---
+import RainbowText from "./RainbowText.astro";
+---
+
+<td id="extra-info" class="align-baseline">
+   <section class="border-[#2F2F2F] text-white rounded-sm rounded-l-2xl p-2 border-2 font-[silkscreen] top-0 h-auto">
+      <span class="text-xs">Links, doodads, and whatnots.</span>
+      <ul>
+         <br>
+         <li><a class="text-sm" href="https://knownsh.cc">KnownWiki</a></li>
+         <li><a class="text-sm" href="https://discordapp.com/users/292858069371584513/">Discord</a></li>
+         <li><a class="text-sm" href="https://github.com/KnownSH">GitHub</a></li>
+         <li><a class="text-sm" href="https://x.com/knownser">Twitter</a></li>
+         <br>
+         <!--li><a href="/voxelgame">DergBloks</a></li-->
+         <li><a class="text-sm"><RainbowText text="Sona-Refsheet"/></a></li>
+      </ul>
+   </section>
+   <slot />
+</td>
+
+<style>
+   li {
+		margin-left: 1.2rem;
+		list-style-type: circle;
+	}
+   a:hover {
+    color: gray;
+  }
+</style>

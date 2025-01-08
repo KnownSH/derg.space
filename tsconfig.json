@@ -1,5 +1,13 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "strictNullChecks": true,
+    "jsx": "preserve", // Let Astro handle JSX
+    "baseUrl": "./src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+    }
+  },
   "exclude": ["dist"]
 }

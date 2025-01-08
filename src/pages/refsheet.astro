@@ -1,0 +1,84 @@
+---
+import Image from "astro/components/Image.astro";
+import Header from "../components/Header.astro";
+import Sidebox from "../components/Sidebox.astro";
+import Layout from "../layouts/Layout.astro";
+import Footer from "../layouts/Footer.astro";
+
+import Krefsheet from "../assets/KnownSH_Refsheet.png";
+---
+
+<Layout>
+  <section
+    class="p-3 mx-auto min-h-screen w-3/5 flex-col gap-5 text-sm text-white"
+  >
+    <Header />
+    <div
+      class="grid grid-cols-[200px,1fr] grid-rows-[auto,auto] gap-4"
+    >
+      <Sidebox class="row-start-1 row-end-2"/>
+
+      <section
+        class="border-[#2F2F2F] text-white rounded-sm mt-[-0.5rem] p-2 border-2 rounded-l-2xl w-full font-[silkscreen] row-start-2 row-end-3"
+      >
+        <span class="text-xl text-[#B47FC9]">Info</span>
+        <table class="w-full text-sm">
+          <tbody>
+            <tr>
+              <td class="font-bold w-3/6">Name</td>
+              <td>Known</td>
+            </tr>
+            <tr>
+              <td class="font-bold w-2/6">Species</td>
+              <td>Furred Dragon</td>
+            </tr>
+            <tr>
+              <td class="font-bold w-2/6">Height</td>
+              <td>180cm (5'11")</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <main class="row-start-1 row-span-2">
+        <section
+          class="border-[#2F2F2F] border-l-8 rounded-sm p-4 border-2 rounded-r-2xl bg-[#050505]"
+        >
+          <Image
+            class="rounded-xl w-full"
+            alt="Known (Fursona)"
+            src={Krefsheet}
+          />
+        </section>
+      </main>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Silkscreen:wght@400;700&display=swap");
+
+  .general-stroke {
+    @apply border-[#2F2F2F] rounded-sm p-2 border-2;
+  }
+
+  .silkscreen {
+    font-family: "Silkscreen";
+  }
+
+  .noalias {
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  a:hover {
+    color: gray;
+  }
+  li {
+    margin-left: 1.2rem;
+    /*list-style-type: circle;*/ /*i dont think list-disc is supported yet so ill just remove this*/
+  }
+</style>

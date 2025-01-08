@@ -1,11 +1,266 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import type { ImageMetadata } from "astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import Image from "astro/components/Image.astro";
+
+import Known from "../assets/known.png";
+import KnownWiki from "../assets/knownwiki.jpg";
+import Fillo2 from "../assets/fillo2.jpeg";
+import Sidebox from "../components/Sidebox.astro";
+import Footer from "../layouts/Footer.astro";
+import ProgrammingLanguage from "../components/main/ProgrammingLanguage.astro";
+
+const buttonsRaw = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/buttons/*",
+  { eager: true }
+);
+
+const buttons: ImageMetadata[] = Object.values(buttonsRaw).map(
+  (item) => item.default
+);
 ---
 
 <Layout>
-	<Welcome />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+  />
+  <section
+    class="p-3 mx-auto min-h-screen w-[960px] flex-col gap-5 text-sm text-white"
+  >
+    <Header />
+    <div class="flex relative">
+      <Sidebox />
+      <main class="flex-grow pl-4">
+        <section
+          class="border-[#2F2F2F] border-l-8 rounded-sm p-4 border-2 rounded-r-2xl"
+        >
+          <h2 class="silkscreen text-xl text-[#B47FC9] mb-4">
+            Hey there, how are you doing?
+          </h2>
+          <p class="mb-4">
+            This is my website. There isn't much here to be honest. It's mostly
+            used to link to my other projects and to act as a "soft-portfolio"
+            of my work
+          </p>
+          <div class="mb-4">
+            <span class="block mb-2">
+              Short bio and factoids for those who demand:
+            </span>
+            <Image
+              class="m-2 float-right w-28 rounded-sm p-2 border-[0.1rem] border-[#B47FC9] bg-black"
+              src={Known}
+              alt="Known character"
+            />
+            <span
+              class="float-right relative clear-right silkscreen text-xs pr-2 -mt-1"
+              >
+                - Known (SH)
+              </span
+            >
+            <ul>
+              <li class="ml-6 mb-2 list-disc">
+                I'm a programmer, artist, 3D modeler-ish, and other stuff
+                relating to software design.
+              </li>
+              <li class="ml-6 mb-2 list-disc">
+                I don't like web development that much, which is a bit ironic
+                since well...
+              </li>
+              <li class="ml-6 mb-2 list-disc">
+                Big fan of spaceflight, rocketry in general.
+              </li>
+              <li class="ml-6 mb-2 list-disc">
+                I'm entirely self taught, I've never taken any actual courses.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span class="block mb-2">
+              Programming languages and environments I have some knowledge in:
+            </span>
+            <ul class="pt-1 block">
+              <ProgrammingLanguage language="rust" url="https://www.rust-lang.org/" />
+              <ProgrammingLanguage language="lua" url="https://www.lua.org/" />
+              <ProgrammingLanguage language="c" url="https://en.wikipedia.org/wiki/C_(programming_language)"/>
+              <ProgrammingLanguage language="typescript" url="https://www.typescriptlang.org/" />
+              <ProgrammingLanguage language="zig" url="https://ziglang.org/" />
+              <ProgrammingLanguage language="javascript" url="https://en.wikipedia.org/wiki/JavaScript" />
+              <ProgrammingLanguage language="java" url="https://en.wikipedia.org/wiki/Java_(programming_language)" />
+              <ProgrammingLanguage language="bash" url="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" />
+              <ProgrammingLanguage language="powershell" url="https://en.wikipedia.org/wiki/PowerShell" />
+              <ProgrammingLanguage language="python" url=="https://www.python.org/" />
+              <ProgrammingLanguage language="neovim" url="https://neovim.io/" />
+              <ProgrammingLanguage language="vscode" url="https://code.visualstudio.com/" />
+              <ProgrammingLanguage language="intellij" url="https://www.jetbrains.com/ides/" />
+            </ul>
+          </div>
+        </section>
+
+        <section id="projects" class="pt-8">
+          <h1 class="silkscreen text-2xl pb-4">
+            My "Recent*" Projects<p class="text-xs">
+            Not in any proper order
+            </p>
+          </h1>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section
+              id="project"
+              class="border-[#B47FC9] border-l-8 rounded-sm rounded-r-xl p-4 border-2 bg-[#050505] transition-colors hover:bg-[#10081d] flex flex-col"
+            >
+              <h1 class="silkscreen text-lg text-[#B47FC9] mb-2">
+                <i class="devicon-java-plain colored text-2xl"></i> Minecraft Explosion
+                Optimization Mod (Explodee)
+              </h1>
+              <Image
+                class="w-full md:w-1/2 pt-2"
+                alt="description"
+                src={Fillo2}
+              />
+              <p class="text-base py-3">
+                A mod I made to improve explosion propogation in Minecraft. It
+                cuts down on the number of calculations the game has to do per
+                explosion when using normal TNT.
+              </p>
+              <div class="flex gap-4">
+                <a
+                  href="https://github.com/KnownSH/Explodee/tree/main"
+                  class="silkscreen text-[#B47FC9] hover:text-gray-400 transition-colors"
+                >
+                  GitHub Repo
+                </a>
+                <a
+                  href="https://modrinth.com/mod/explodee"
+                  class="silkscreen text-[#61cc78] hover:text-gray-400 transition-colors"
+                >
+                  Modrinth
+                </a>
+              </div>
+            </section>
+            <section
+              id="project"
+              class="border-[#B47FC9] border-r-8 rounded-sm rounded-l-xl p-4 border-2 bg-[#050505] transition-colors hover:bg-[#10081d] flex flex-col"
+            >
+              <h1 class="silkscreen text-lg text-[#B47FC9] mb-2">
+                <i class="devicon-typescript-plain colored text-2xl"></i
+                ><i class="devicon-astro-plain colored text-2xl"></i> KnownWiki
+                (knownsh.cc)
+              </h1>
+              <Image
+                class="w-full md:w-1/2 pt-2"
+                alt="description"
+                src={KnownWiki}
+              />
+              <p class="text-base py-3">
+                A relatively simple MediaWiki clone that is entirely statically
+                generated. Uses Astro and MDX to write articles.
+              </p>
+              <div class="flex gap-4 mt-auto">
+                <a
+                  href="https://github.com/KnownSH/Explodee/tree/main"
+                  class="silkscreen text-[#B47FC9] hover:text-gray-400 transition-colors"
+                >
+                  Visit KnownWiki
+                </a>
+              </div>
+            </section>
+            <section
+              id="project"
+              class="border-[#B47FC9] border-l-8 rounded-sm rounded-r-xl p-4 border-2 bg-[#050505] transition-colors hover:bg-[#10081d] flex flex-col"
+            >
+              <h1 class="silkscreen text-lg text-[#B47FC9] mb-2">
+                <i class="devicon-lua-plain colored text-2xl"></i> Discord4u
+              </h1>
+              <p class="text-base py-3">
+                An attempt to create a fully functional Discord bot API from
+                scratch (nothing but websockets) in the Luau programming
+                language. Although not maintained anymore, it is capable of
+                creating simple "question->answer" bots (i.e. !ping)
+              </p>
+              <div class="flex gap-4 mt-auto">
+                <a
+                  href="https://github.com/KnownSH/Discord4u"
+                  class="silkscreen text-[#B47FC9] hover:text-gray-400 transition-colors"
+                >
+                  GitHub Repo
+                </a>
+              </div>
+            </section>
+            <section
+              id="project"
+              class="border-[#B47FC9] border-r-8 rounded-sm rounded-l-xl p-4 border-2 bg-[#050505] transition-colors hover:bg-[#10081d] flex flex-col"
+            >
+              <h1 class="silkscreen text-lg text-[#B47FC9] mb-2">
+                <i class="devicon-java-plain colored text-2xl"></i> FiguraSVC
+              </h1>
+              <iframe
+                class="pt-2 w-full aspect-video"
+                src="https://www.youtube.com/embed/Q1ZDHl6Ut-A?si=QuS8yyEU7c6Meooa"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+              <p class="text-base py-3">
+                A Minecraft addon mod which adds voice capabilities to the
+                custom avatar creation mod Figura.
+              </p>
+              <div class="flex gap-4 mt-auto">
+                <a
+                  href="https://modrinth.com/mod/figurasvc"
+                  class="silkscreen text-[#61cc78] hover:text-gray-400 transition-colors"
+                >
+                  Modrinth
+                </a>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+    <Footer>
+      <div class="mt-8">
+        {
+          buttons.map((button) => (
+            <Image
+              class="inline-block p-0.5 noalias"
+              alt="info"
+              src={button}
+            />
+          ))
+        }
+      </div>
+    </Footer>
+  </section>
 </Layout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Silkscreen:wght@400;700&display=swap");
+
+	.general-stroke {
+		@apply border-[#2F2F2F] rounded-sm p-2 border-2;
+	}
+
+	.silkscreen {
+		font-family: "Silkscreen";
+	}
+
+	.noalias {
+		image-rendering: auto;
+		image-rendering: crisp-edges;
+		image-rendering: pixelated;
+		image-rendering: -webkit-optimize-contrast;
+	}
+
+	a:hover {
+		color: gray;
+	}
+  li {
+    margin-left: 1.2rem;
+    /*list-style-type: circle;*/ /*i dont think list-disc is supported yet so ill just remove this*/
+  }
+</style>

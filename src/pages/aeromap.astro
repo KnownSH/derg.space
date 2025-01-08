@@ -1,0 +1,151 @@
+---
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import AeroMapEmbedImage from "../assets/aeromap.jpg";
+import AeroMap from "../components/aeromap/AeroMap.tsx";
+---
+
+<Layout description="An actually interactable map for Aeronautica" title="derg.space Aeronautimap Project">
+  <Fragment slot="header-data">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/lightgallery@2.8.2/css/lightgallery-bundle.min.css" />
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://derg.space/aeromap">
+    <meta property="og:image" content={AeroMapEmbedImage.src}>
+    <meta property="og:image:width" content="1897">
+    <meta property="og:image:height" content="790">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content={AeroMapEmbedImage.src}>
+  </Fragment>
+  <Header description="The AeronautiMap Project"/>
+  <AeroMap client:only />
+</Layout>
+<style is:inline lang="less">
+  #modal.open {
+    right: 0; /* Slide in from the right */
+  }
+
+  #modal {
+    position: absolute;
+    right: -22rem; /* Initially hidden off-screen */
+    width: 22rem;
+    height: 100%;
+    background-color: black;
+    border-left-width: 2px;
+    border-color: white;
+    z-index: 1001; /* Ensure it's above the map */
+    transition: right 0.3s ease-in-out; /* Smooth sliding animation */
+    overflow-y: auto;
+    padding: 1rem;
+
+    &-content {
+      padding: 20px;
+    }
+
+    h2 {
+      font-family: "silkscreen", sans-serif;
+      font-size: larger;
+    }
+
+    img {
+      border: 2px white solid;
+    }
+
+    .infobox-table {
+      width: 100%;
+      margin-top: 10px;
+      .infobox-label {
+        font-weight: bold;
+        padding-right: 0.3rem;
+      }
+      .infobox-header {
+        margin: auto;
+        text-align: center;
+        font-family: "silkscreen", sans-serif;
+      }
+    }
+  }
+
+  .trello-card {
+    margin-top: 1rem;
+  }
+
+  #map {
+    height: 82%;
+    width: 100%;
+    margin: auto;
+  }
+
+  .uiElement {
+    color: black !important;
+  }
+
+  .title {
+    font-family: 'silkscreen', sans-serif;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 0px;
+    box-shadow: none;
+    border-width: 2px;
+    border-color: white;
+    background-color: black;
+    color: white;
+  }
+
+  .leaflet-touch .leaflet-bar a:first-child,
+  .leaflet-touch .leaflet-bar a:last-child {
+    border-radius: 0px;
+  }
+
+  .leaflet-bar {
+    border-color: rgba(255, 255, 255, 1.0) !important;
+    border-radius: 0px;
+  }
+
+  .leaflet-control-attribution {
+    background-color: black !important;
+    border-top-width: 2px;
+    border-left-width: 2px;
+    border-color: white;
+  }
+
+  .leaflet-div-icon {
+    background: none;
+    border: none;
+    b {
+      margin: auto;
+      text-align: center;
+      text-wrap: none;
+    }
+  }
+
+  a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+    background-color: black;
+    border-color: white;
+    border-bottom: none;
+    span {
+      color: white;
+    }
+  }
+
+  .leaflet-popup-tip {
+    box-shadow: none;
+  }
+
+  .leaflet-popup-close-button {
+    span {
+      color: white
+    }
+  }
+
+  .leaflet-popup-content:has(img) {
+    margin: 0px;
+    width: inherit !important;
+
+    img {
+      max-width: none;
+    }
+  }
+
+</style>
