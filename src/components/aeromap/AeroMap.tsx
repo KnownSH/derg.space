@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as L from "leaflet";
-import ClarenceIsland from "../../assets/clarencehires.png";
 
 const AeroMapConfig = {
-  crs: L.CRS.Simple,
-  minZoom: -4,
+  crs: L.CRS.EPSG3857,
+  minZoom: 1,
   initialView: {
-    latLng: [5213.910462, 4705.59375] as L.LatLngExpression,
+    latLng: [0, 0] as L.LatLngExpression,
     zoom: 1,
   },
   bounds: [[0, 0], [10000, 10000]] as L.LatLngBoundsExpression,
@@ -31,13 +30,42 @@ const loadTrelloEmbed = () => {
 };
 
 const AeroMap = () => {
+  
   const [mapar, setMap] = useState<L.Map | null>(null);
 
   useEffect(() => {
     const map = L.map('map', {
       crs: AeroMapConfig.crs,
       minZoom: AeroMapConfig.minZoom,
-    }).setView(AeroMapConfig.initialView.latLng, AeroMapConfig.initialView.zoom);
+      zoomSnap: 0,
+      zoomDelta: 0.25,
+      layers: [
+        new L.TileLayer("/aeromap-assets/full_map_tiles/{z}/{x}/{y}.jpg", {
+          maxNativeZoom: 7, 
+          maxZoom: 11, 
+          minZoom: 1, 
+          noWrap: true,
+          bounds: [[85.020879, -179.67041], [-84.92382, 178.066406]],
+          attribution: "2025. Assets by Aeronautica Developers",
+        }),
+        new L.TileLayer("/aeromap-assets/clarence_island_tiles/{z}/{x}/{y}.jpg", {
+          maxNativeZoom: 11, 
+          maxZoom: 15, 
+          minZoom: 8, 
+          noWrap: true, 
+          bounds: [[5.257627, 5.415454], [-2.036203, 10.83252]],
+        }),
+        new L.TileLayer("/aeromap-assets/webley_island_tiles/{z}/{x}/{y}.png", {
+          maxNativeZoom: 11, 
+          maxZoom: 15, 
+          minZoom: 8, 
+          noWrap: true, 
+          bounds: [[8.008968, -11.164856], [7.373445, -9.901428]],
+        }),
+      ]
+    }).setView([0, 0], 2);
+      //85.020879, -179.67041 -84.92382, 178.066406
+    
     
     var modal = document.getElementById("modal");
     var modalContent = document.getElementById("modal-content");
@@ -54,15 +82,6 @@ const AeroMap = () => {
       if (modal == null) { return null };
       modal.classList.remove("open");
     }
-    
-    var bounds: L.LatLngBoundsExpression = [[0, 0], [10000, 10000]];
-    var image = L.imageOverlay('/Aeromap.png', bounds).addTo(map);
-    
-    var undyana = L.imageOverlay('/Udyanapuraplaceholder.png', [[3050, 2326], [3798, 3035]]).addTo(map);
-    var clarence = L.imageOverlay(ClarenceIsland.src, [[4940, 5151], [5150, 5303]]).addTo(map);
-    
-    var islandbounds: L.LatLngBoundsExpression = [[5202, 4685], [5225, 4727]];
-    var island = L.imageOverlay('/mappage.png', islandbounds).addTo(map);
     
     let orangeMarker = L.icon({
       iconUrl: '/map-marker-orange.png',
@@ -92,18 +111,19 @@ const AeroMap = () => {
     });
     
     let webleypoly = L.polygon([
-      [5214.084987, 4693.384766],
-      [5213.766707, 4693.226563],
-      [5209.083177, 4702.509766],
-      [5209.383358, 4702.663086],
+      [7.678528, -10.950621],
+      [7.689357, -10.94529],
+      [7.536294, -10.645368],
+      [7.52626, -10.649758],
     ]);
     
-    var marker = L.marker([5211.5, 4698], {icon: airportMarker}).bindPopup("Webley Island Airfield <b>(MUWI)</b>").addTo(map);
+    var marker = L.marker([7.589975, -10.749435], {icon: smallairportMarker}).bindPopup("Webley Island Airfield <b>(MUWI)</b>").addTo(map);
 
-    var marker2 = L.marker([5028.161341, 5279.5625], {icon: airportMarker}).addTo(map);
-    var marker3 = L.marker([5121.304985, 5273.046875], {icon: smallairportMarker}).addTo(map);
+    var marker2 = L.marker([0.975115, 10.023651], {icon: airportMarker}).addTo(map);
+    var marker3 = L.marker([4.223242, 9.788818], {icon: smallairportMarker}).addTo(map);
     
     marker.on('click', (e) => {
+      map.setView(e.latlng, 10);
       openModal(`
         <div class="infobox">
           <h2 class="infobox-title">Webley Island Airfield</h2>
@@ -152,11 +172,11 @@ const AeroMap = () => {
     
     let webleyIslandCrates = new L.FeatureGroup();
     
-    L.marker([5214.75, 4707.28], {icon: crateMarker}).addTo(webleyIslandCrates)
+    L.marker([7.710332, -10.491943], {icon: crateMarker}).addTo(webleyIslandCrates)
       .bindPopup(`<img style="width: 20rem" src="/aeromap-assets/webley-island/crateloc1.jpg"></img>`, {closeButton: false});
-    L.marker([5222.721857, 4719.473633], {icon: crateMarker}).addTo(webleyIslandCrates)
+    L.marker([7.969496, -10.0978093], {icon: crateMarker}).addTo(webleyIslandCrates)
       .bindPopup(`<img style="width: 20rem" src="/aeromap-assets/webley-island/crateloc2.jpg"></img>`, {closeButton: false});
-    L.marker([5214.47656, 4718.759766], {icon: crateMarker}).addTo(webleyIslandCrates)
+    L.marker([7.702528, -10.119438], {icon: crateMarker}).addTo(webleyIslandCrates)
       .bindPopup(`<a><img style="width: 20rem" id="lightgallery" src="/aeromap-assets/webley-island/crateloc3.jpg"></img></a>`, {closeButton: false});
     
     var clickpopup = L.popup()
@@ -173,21 +193,15 @@ const AeroMap = () => {
     }
     
     function onMapZoomEnd(e) {
-      if (map.getZoom() < 3) {
+      if (map.getZoom() < 6) {
         map.removeLayer(webleyIslandCrates);
-        airportMarker.options.iconSize = [26/2, 38/2];
-        airportMarker.options.iconAnchor = [(26/2)/2, 38/2],
-        marker.setIcon(airportMarker);
       } else {
         map.addLayer(webleyIslandCrates);
-        airportMarker.options.iconSize = [26, 38];
-        airportMarker.options.iconAnchor = [26/2, 38],
-        marker.setIcon(airportMarker);
       }
     }
     
     map.on('zoomend', onMapZoomEnd);
-    map.on('click', onMapClick);  
+    map.on('click', onMapClick);
   })
   
   return (

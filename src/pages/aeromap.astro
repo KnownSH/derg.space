@@ -18,7 +18,7 @@ import AeroMap from "../components/aeromap/AeroMap.tsx";
     <meta name="twitter:image:src" content={AeroMapEmbedImage.src}>
   </Fragment>
   <Header description="The AeronautiMap Project"/>
-  <AeroMap client:only />
+  <AeroMap client:only="react" />
 </Layout>
 <style is:inline lang="less">
   #modal.open {
@@ -146,6 +146,10 @@ import AeroMap from "../components/aeromap/AeroMap.tsx";
     img {
       max-width: none;
     }
+  }
+
+  .leaflet-control-attribution {
+    color: white;
   }
 
 </style>
