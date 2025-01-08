@@ -9,7 +9,7 @@ const AeroMapConfig = {
     zoom: 1,
   },
   bounds: [[0, 0], [10000, 10000]] as L.LatLngBoundsExpression,
-};
+}; // not being used lol
 
 const loadTrelloEmbed = () => {
   if (!document.querySelector('script[src="https://p.trellocdn.com/embed.min.js"]')) {
