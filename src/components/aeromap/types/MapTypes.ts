@@ -1,14 +1,10 @@
 import * as L from 'leaflet';
 
-export interface Language {
-  'lang-en': any,
-  'lang-fr': any,
-}
-
 export type MarkerNames =
   | 'airport'
   | 'small_airport'
   | 'crate'
+  | 'hidden_airport';
 
 export interface MarkerInteractions {
   on_click?: {
@@ -50,5 +46,4 @@ export interface RegionData {
   id: string,
   airports?: AirportData[],
   crates?: CrateData[],
-  lang: Partial<Language>,
 }

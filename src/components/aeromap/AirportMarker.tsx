@@ -2,18 +2,17 @@ import React from "react";
 import * as L from 'leaflet';
 import type { AirportData, LocationData, RegionData } from "./types/MapTypes";
 import { airportMarker, crateMarker, hiddenAirportMarker, smallAirportMarker } from "./MapIcons";
-import type { Params } from "./AeroMap";
 import type { defaultLang, ui } from "i18n/ui";
+
+type LanguageToken = keyof typeof ui[typeof defaultLang];
 
 interface AirportMarkerProps {
   airport: AirportData,
   openModal: (content: string) => void,
   closeModal: () => void,
   map: L.Map,
-  t: (key: keyof typeof ui[typeof defaultLang]) => string,
+  t: (key: LanguageToken) => string,
 }
-
-type LanguageToken = keyof typeof ui[typeof defaultLang];
 
 const basedOnLabel = (basedOn: string, basedOnUrl: string, translation: string) => {
   const label = `
@@ -30,7 +29,7 @@ const logoLabel = (logo: string, name: string, t: AirportMarkerProps['t'], unoff
     <a href=${logo} class="logo-container">
       <img class="infobox-logo" src=${logo} alt="logo of ${name}${unofficial == true ? " (UNOFFICIAL)" : ""}">
       ${unofficial == true ? `
-        <span class="icon-info" title=" ${t("infobox.info")}">INFO:</span>
+        <span class="icon-info" title=" ${t("infobox.info")}">${t("infobox.info_hover")}</span>
       ` : ""}
     </a>
   `;
@@ -42,13 +41,13 @@ const formatLocation = (locationData: LocationData, t: AirportMarkerProps['t']) 
   let formattedString = "";
 
   if (town) {
-    formattedString += t(`region.town.${town}` as LanguageToken) + ", ";
+    formattedString += t(town as LanguageToken) + ", ";
   }
   if (subregion) {
-    formattedString += t(`region.sr.${subregion}` as LanguageToken) + ", ";
+    formattedString += t(subregion as LanguageToken) + ", ";
   }
 
-  formattedString += t(`region.r.${region}` as LanguageToken);
+  formattedString += t(region as LanguageToken);
   return formattedString;
 };
 
@@ -109,7 +108,7 @@ const AirportMarker: React.FC<AirportMarkerProps> = ({ airport, openModal, close
     return content;
   };
 
-  const localizedName = t(`airport.${name}` as keyof typeof ui[typeof defaultLang]);
+  const localizedName = t(name as LanguageToken);
 
   const marker = L.marker(coordinates as L.LatLngExpression, {
     icon: marker_icon == "airport" ? airportMarker : marker_icon == "crate" ? crateMarker : marker_icon == "hidden_airport" ? hiddenAirportMarker : smallAirportMarker

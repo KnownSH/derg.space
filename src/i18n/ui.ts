@@ -9,6 +9,7 @@ export const defaultLang = 'en';
 
 export const ui = {
   en: {
+    "main.none": "",
     "main.logo.url": "Aeromaps_logo-en.svg",
     "main.contribute": "Contribute Data to Aeromaps",
     "main.watermark": "A derg.space project",

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import * as L from "leaflet";
 import { airportMarker, crateMarker, smallAirportMarker } from "./MapIcons";
 import AirportMarker from "./AirportMarker";
-import { AllRegions, WebleyIsland } from "./MapData";
+import { AllRegions } from "./MapData";
 import lightGallery from 'lightgallery';
 import type { LightGallery } from "lightgallery/lightgallery";
 import type { defaultLang, ui } from "i18n/ui";
