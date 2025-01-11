@@ -1,9 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "allowImportingTsExtensions": true,
     "strictNullChecks": true,
-    "jsx": "preserve", // Let Astro handle JSX
     "baseUrl": "./src",
     "paths": {
       "@assets/*": ["assets/*"],
